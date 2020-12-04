@@ -173,24 +173,6 @@ module.exports = [
         equal: false
       },
       {
-        description: 'object with extra undefined properties are not equal #1',
-        value1: {},
-        value2: {foo: undefined},
-        equal: false
-      },
-      {
-        description: 'object with extra undefined properties are not equal #2',
-        value1: {foo: undefined},
-        value2: {},
-        equal: false
-      },
-      {
-        description: 'object with extra undefined properties are not equal #3',
-        value1: {foo: undefined},
-        value2: {bar: undefined},
-        equal: false
-      },
-      {
         description: 'nulls are equal',
         value1: null,
         value2: null,

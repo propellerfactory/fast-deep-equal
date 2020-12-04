@@ -2,9 +2,7 @@
 
 // do not edit .js files directly - edit src/index.jst
 
-{{? it.es6 }}
-  var envHasBigInt64Array = typeof BigInt64Array !== 'undefined';
-{{?}}
+
 
 module.exports = function equal(a, b) {
   if (a === b) return true;
@@ -21,31 +19,7 @@ module.exports = function equal(a, b) {
       return true;
     }
 
-{{? it.es6 }}
-    if ((a instanceof Map) && (b instanceof Map)) {
-      if (a.size !== b.size) return false;
-      for (i of a.entries())
-        if (!b.has(i[0])) return false;
-      for (i of a.entries())
-        if (!equal(i[1], b.get(i[0]))) return false;
-      return true;
-    }
 
-    if ((a instanceof Set) && (b instanceof Set)) {
-      if (a.size !== b.size) return false;
-      for (i of a.entries())
-        if (!b.has(i[0])) return false;
-      return true;
-    }
-
-    if (ArrayBuffer.isView(a) && ArrayBuffer.isView(b)) {
-      length = a.length;
-      if (length != b.length) return false;
-      for (i = length; i-- !== 0;)
-        if (a[i] !== b[i]) return false;
-      return true;
-    }
-{{?}}
 
     if (a.constructor === RegExp) return a.source === b.source && a.flags === b.flags;
     if (a.valueOf !== Object.prototype.valueOf) return a.valueOf() === b.valueOf();
@@ -68,14 +42,14 @@ module.exports = function equal(a, b) {
 
     for (i = length; i-- !== 0;) {
       var key = keys[i];
-{{? it.react }}
+
       if (key === '_owner' && a.$$typeof) {
         // React-specific: avoid traversing React elements' _owner.
         //  _owner contains circular references
         // and is not needed when comparing the actual elements (and not their owners)
         continue;
       }
-{{?}}
+
       if (!equal(a[key], b[key])) return false;
     }
 
